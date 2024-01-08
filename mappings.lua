@@ -10,17 +10,21 @@ M.disabled = {
 
 M.abc = {
   n = {
-    ["[b"] = {"<cmd>bprev<CR>", "Previous Buffer"},
+    ["[b"] = {"<cmd>bprev<CR>", "Prev Buffer"},
     ["]b"] = {"<cmd>bnext<CR>", "Next Buffer"},
+    ["[e"] = {vim.diagnostic.goto_prev, "Prev Error"},
+    ["]e"] = {vim.diagnostic.goto_next, "Next Error"},
     ["<leader>n"] = {"<cmd>NvimTreeToggle<CR>", "Toggle Nvim Tree"},
     ["<leader> "] = { "<cmd>Telescope find_files<CR>", "Find files" },
     ["<leader>bb"] = { "<cmd>Telescope buffers<CR>", "Find buffers" },
     ["<leader>bd"] = { "<cmd>bdelete<CR>", "Delete current buffer" },
-    ["<C-n>"] = {"<cmd>Telescope<CR>", "Telescope"},
+    ["<leader>cr"] = { "<cmd> Telescope lsp_references <CR>", "[C]ode [R]references" },
+    ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "[F]ind [R]ecent files" },
     ["<C-s>"] = {":Telescope Files<CR>", "Telescope Files"}
   },
 }
 
--- vim.g.maplocalleader = ","
+vim.opt.relativenumber = true;
+vim.g.maplocalleader = ","
 
 return M
