@@ -1,8 +1,10 @@
--- local autocmd = vim.api.nvim_create_autocmd
+local autocmd = vim.api.nvim_create_autocmd
 
--- Auto resize panes when resizing nvim window
--- autocmd("VimResized", {
---   pattern = "*",
---   command = "tabdo wincmd =",
--- })
+autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function(args)
+    vim.opt_local.formatoptions:remove({ 'r', 'o' })
+  end
+})
+
 vim.opt.relativenumber = true;
