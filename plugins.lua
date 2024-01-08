@@ -110,6 +110,10 @@ local plugins = {
     lazy = false
   },
 
+  {
+    "RRethy/vim-illuminate",
+    lazy = false
+  }
 }
 
 return plugins
