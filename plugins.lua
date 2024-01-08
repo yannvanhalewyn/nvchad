@@ -79,10 +79,13 @@ local plugins = {
     keys = {
       { "<leader>ha", function() require("harpoon.mark").add_file() end, desc = "Harpoon Add File" },
       { "<leader>hh", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon Quick Menu" },
+      { "<leader>H", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon Quick Menu" },
       { "<leader>1", function() require("harpoon.ui").nav_file(1) end, desc = "Harpoon Browse File (1)" },
       { "<leader>2", function() require("harpoon.ui").nav_file(2) end, desc = "Harpoon Browse File (2)" },
       { "<leader>3", function() require("harpoon.ui").nav_file(3) end, desc = "Harpoon Browse File (3)" },
       { "<leader>4", function() require("harpoon.ui").nav_file(4) end, desc = "Harpoon Browse File (4)" },
+      { "<leader>5", function() require("harpoon.ui").nav_file(5) end, desc = "Harpoon Browse File (5)" },
+      { "<leader>6", function() require("harpoon.ui").nav_file(6) end, desc = "Harpoon Browse File (6)" },
     },
   },
   {
