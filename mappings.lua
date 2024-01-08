@@ -3,8 +3,11 @@ local M = {}
 -- -- In order to disable a default keymap, use
 M.disabled = {
   n = {
-      ["<leader>b"] = "",
-      -- ["<C-a>"] = ""
+    ["<leader>b"] = "",
+    ["<C-n>"] = "",
+    ["<A-h>"] = "",
+    ["<leader>h"] = "",
+    ["<leader>v"] = "",
   }
 }
 
