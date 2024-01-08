@@ -51,6 +51,16 @@ M.mason = {
   },
 }
 
+M.telescope = {
+  extensions_list = { "themes", "terms", "fzf", "ui-select" },
+
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_ivy({})
+    }
+  }
+}
+
 -- git support in nvimtree
 M.nvimtree = {
   git = {

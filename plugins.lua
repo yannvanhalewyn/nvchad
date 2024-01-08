@@ -21,6 +21,14 @@ local plugins = {
       require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
   },
+  {
+    "nvim-telescope/telescope.nvim",
+    -- needed for ui-select to attach to vim.ui
+    lazy = false,
+    opts = overrides.telescope
+  },
+
+  "nvim-telescope/telescope-ui-select.nvim",
 
   -- override plugin configs
   {
