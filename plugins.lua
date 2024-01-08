@@ -98,6 +98,14 @@ local plugins = {
     }
   },
   {
+    "julienvincent/nvim-paredit",
+    lazy = false,
+    config = function()
+      require("nvim-paredit").setup({ indent = { enabled = true } })
+    end
+  },
+
+  {
     "nvim-treesitter/playground",
     lazy = false
   },
