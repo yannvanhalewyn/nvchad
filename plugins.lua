@@ -84,6 +84,11 @@ local plugins = {
       { "<leader>gg", vim.cmd.Git, desc = "Git" }
     }
   },
+  {
+    "nvim-treesitter/playground",
+    lazy = false
+  },
+
 }
 
 return plugins
