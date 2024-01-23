@@ -14,8 +14,29 @@ return {
     fmt([[(binding [*print-namespace-maps* false]
   (clojure.pprint/pprint {} (clojure.java.io/writer "{}")))
     ]], {
-      i(1, "data"),
-      i(2, "data.edn"),
-    })
+        i(1, "data"),
+        i(2, "data.edn"),
+      }
+    )
   ),
+  s(
+    "read-csv",
+    fmt([[(with-open [rdr (io/reader (io/file {}))]
+  (into [] (csv/read-csv rdr :separator \{})))
+    ]], {
+        i(1, "file"),
+        i(2, "separator"),
+      }
+    )
+  ),
+  s(
+    "write-csv",
+    fmt([[(with-open [writer (io/writer (io/file {}))]
+  (csv/write-csv writer {}))
+  ]], {
+        i(1, "file"),
+        i(2, "csv-rows")
+      }
+    )
+  )
 }
