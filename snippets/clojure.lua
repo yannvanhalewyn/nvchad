@@ -39,5 +39,6 @@ return {
         i(2, "csv-rows")
       }
     )
-  )
+  ),
+  s("ra", t("(clojure.tools.namespace.repl/refresh-all)"), {})
 }
