@@ -9,10 +9,11 @@ M.override = {
   Comment = {
     italic = true,
   },
+  -- used to be @function.call?
   ["@function"] = {
     fg = "yellow",
   },
-  ["@function.call"] = {
+  ["@constructor"] = {
     fg = "yellow",
   },
   ["@string.special"] = {
