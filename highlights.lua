@@ -10,9 +10,12 @@ M.override = {
     italic = true,
   },
   ["@function"] = {
-    fg = "red",
+    fg = "yellow",
   },
-  ["@symbol"] = {
+  ["@function.call"] = {
+    fg = "yellow",
+  },
+  ["@string.special"] = {
     fg = "blue",
   },
 }
