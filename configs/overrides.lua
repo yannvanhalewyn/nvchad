@@ -1,5 +1,13 @@
 local M = {}
 
+-- Get's called correctly and returns true for conjure
+local is_conjure_buffer = function(lang)
+  local buf_name = vim.fn.expand("%")
+  if lang == "clojure" and string.find(buf_name, "conjure%-") then
+    return true
+  end
+end
+
 M.treesitter = {
   ensure_installed = {
     "vim",
@@ -10,6 +18,11 @@ M.treesitter = {
     "markdown",
     "markdown_inline",
     "clojure",
+  },
+
+  highlight = {
+    -- disable = is_conjure_buffer
+    additional_vim_regex_highlighting = false
   },
 
   playground = {
@@ -41,26 +54,21 @@ M.mason = {
     -- web dev stuff
     "css-lsp",
     "html-lsp",
-    "typescript-language-server",
-    "deno",
     "prettier",
-
-    -- c/cpp stuff
-    "clangd",
-    "clang-format",
   },
 }
 
 local cmp = require "cmp"
 
 M.cmp = {
-  mapping = {
+  mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = nil,
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.confirm()
@@ -70,34 +78,52 @@ M.cmp = {
         fallback()
       end
     end, { "i", "s", }),
-  },
+  }),
 }
+
+local function open_with_trouble()
+  require("trouble.providers.telescope").open_with_trouble()
+end
 
 M.telescope = {
   extensions_list = { "themes", "terms", "fzf", "ui-select" },
+  defaults = {
+    mappings = {
+      i = { ["<c-t>"] = open_with_trouble },
+      n = { ["<c-t>"] = open_with_trouble },
+    },
+  },
+
+
+  -- defaults = {
+  --   mappings = {
+  --     i = { ["<c-t>"] = require("trouble.providers.telescope").open_with_trouble },
+  --     n = { ["<c-t>"] = require("trouble.providers.telescope").open_with_trouble },
+  --   },
+  -- },
 
   extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_ivy({})
-    }
+    -- ["ui-select"] = {
+    --   require("telescope.themes").get_ivy({})
+    -- }
   }
 }
 
--- git support in nvimtree
-M.nvimtree = {
-  git = {
-    enable = true,
-    ignore = false,
-  },
-
-  renderer = {
-    highlight_git = true,
-    icons = {
-      show = {
-        git = true,
-      },
-    },
-  },
-}
+-- -- git support in nvimtree
+-- M.nvimtree = {
+--   git = {
+--     enable = true,
+--     ignore = false,
+--   },
+--
+--   renderer = {
+--     highlight_git = true,
+--     icons = {
+--       show = {
+--         git = true,
+--       },
+--     },
+--   },
+-- }
 
 return M
