@@ -18,6 +18,17 @@ local plugins = {
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
+
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
+
+      -- vim.api.nvim_create_autocmd("CursorHold", {
+      --   pattern = "*",
+      --   callback = function(args)
+      --     vim.diagnostic.open_float()
+      --   end
+      -- })
     end, -- Override to setup mason-lspconfig
   },
   {
@@ -27,6 +38,7 @@ local plugins = {
     opts = overrides.telescope
   },
 
+  -- Hook vim.ui.select into Telescope. Makes things like code actions work with Telescope.
   "nvim-telescope/telescope-ui-select.nvim",
 
   -- override plugin configs
