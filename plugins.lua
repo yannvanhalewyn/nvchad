@@ -33,9 +33,8 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
-    -- needed for ui-select to attach to vim.ui
-    lazy = false,
-    opts = overrides.telescope
+    opts = overrides.telescope,
+    dependencies = { "BurntSushi/ripgrep" }
   },
 
   -- Hook vim.ui.select into Telescope. Makes things like code actions work with Telescope.
