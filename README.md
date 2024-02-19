@@ -1,4 +1,4 @@
-# Example_config
+# Example Config
 
 This can be used as an example custom config for NvChad. Do check the https://github.com/NvChad/nvcommunity
 
@@ -37,6 +37,8 @@ vim.diagnostic.config({
 
 - [ ] Markdow Preview?
 https://github.com/iamcco/markdown-preview.nvim
+
+- Maybe check out: LSP file operations: https://github.com/antosha417/nvim-lsp-file-operations
 
 # New bindings
 
