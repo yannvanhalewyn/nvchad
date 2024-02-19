@@ -25,6 +25,10 @@ M.treesitter = {
     additional_vim_regex_highlighting = false
   },
 
+  markdown = {
+    enable = true
+  },
+
   playground = {
     enable = true,
     disable = {},
@@ -86,7 +90,7 @@ local function open_with_trouble()
 end
 
 M.telescope = {
-  extensions_list = { "themes", "terms", "fzf", "ui-select" },
+  extensions_list = { "themes", "terms", "fzf", "ui-select", "file_browser" },
   defaults = {
     mappings = {
       i = { ["<c-t>"] = open_with_trouble },
@@ -110,20 +114,20 @@ M.telescope = {
 }
 
 -- -- git support in nvimtree
--- M.nvimtree = {
---   git = {
---     enable = true,
---     ignore = false,
---   },
---
---   renderer = {
---     highlight_git = true,
---     icons = {
---       show = {
---         git = true,
---       },
---     },
---   },
--- }
+M.nvimtree = {
+  git = {
+    enable = false,
+    ignore = false,
+  },
+
+  renderer = {
+    highlight_git = false,
+    icons = {
+      show = {
+        git = true,
+      },
+    },
+  },
+}
 
 return M
