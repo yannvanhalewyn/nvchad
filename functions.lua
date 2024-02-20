@@ -97,11 +97,30 @@ M.paste_without_parinfer = function()
   end)
 end
 
+M.paredit_wrap = function(l, r, placement)
+  return function()
+    -- place cursor and set mode to `insert`
+    local paredit = require("nvim-paredit")
+    paredit.cursor.place_cursor(
+      -- wrap element under cursor with `( ` and `)`
+      paredit.wrap.wrap_element_under_cursor(l, r),
+      -- cursor placement opts
+      { placement = placement, mode = "insert" }
+    )
+  end
+end
+
 M.open_netrw_filetree = function()
   local prev_size = vim.g.netrw_winsize
   vim.g.netrw_winsize = -30
   vim.cmd("Lexplore")
   vim.g.netrw_winsize = prev_size
+end
+
+M.harpoon_select = function(n)
+  return function()
+    require("harpoon"):list():select(n)
+  end
 end
 
 return M

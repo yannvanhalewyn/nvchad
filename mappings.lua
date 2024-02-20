@@ -8,6 +8,12 @@ local function telescope_cmd(cmd)
   end
 end
 
+local function trouble_cmd(cmd)
+  return function()
+    require("trouble").toggle(cmd)
+  end
+end
+
 local M = {}
 
 M.disabled = {
@@ -34,13 +40,9 @@ M.abc = {
     -- Rebind increment to not use tmux prefix
     ["+"] = {"<C-a>", "Increment"},
     ["-"] = {"<C-x>", "Decrement"},
-    -- ["<C-d>"] = {"<C-d>zz", "Move Down"},
-    -- ["<C-u>"] = {"<C-u>zz", "Move Up"},
     ["n"] = {"nzz", "Next Search Result"},
     ["N"] = {"Nzz", "Prev Search Result"},
     ["S"] = {":%s/<C-r><C-w>/<C-r><C-w>/gI<left><left><left>", "Replace Current Word"},
-    -- Somehow this disabled `<C-i>`
-    -- ["<tab>"] = {"<C-a>", "Jump to matching delimiter"},
     -- ["<leader>cd"] = { function() vim.lsp.buf.hover() end, "Show doc"},
     ["<leader>tp"] = { f.toggle_parinfer, "Toggle Parinfer"},
     ["<leader>td"] = { f.toggle_diagnostics, "Toggle Diagnostics"},
@@ -53,8 +55,6 @@ M.abc = {
     ["]e"] = {vim.diagnostic.goto_next, "Next Error"},
     ["[q"] = {vim.cmd.cprev, "Quickfix Prev"},
     ["]q"] = {vim.cmd.cnext, "Quickfix Next"},
-    -- ["[q"] = {":cp<CR>zz", "Quickfix Prev"},
-    -- ["]q"] = {":cn<CR>zz", "Quickfix Next"},
     ["[w"] = {vim.cmd.tabprev, "Prev Tab"},
     ["]w"] = {vim.cmd.tabnext, "Next Tab"},
     ["<S-tab>"] = {vim.cmd.tabprev, "Prev Tab"},
@@ -121,6 +121,148 @@ M.abc = {
     ["<C-f>"] = {"<Right>"},
     ["<M-b>"] = {"<S-Left>"},
     ["<M-f>"] = {"<S-Right>"},
+  }
+}
+
+M.agitator = {
+  n = {
+    ["<leader>gB"] = { function() require("agitator").git_blame_toggle({}) end, "Git Blame" },
+    ["<leader>gf"] = { function() require("agitator").open_file_git_branch() end, "Git Find File" },
+    ["<leader>gt"] = { function() require("agitator").git_time_machine() end, "Git Timemachine" }
+  }
+}
+
+M.neogit = {
+  n = {
+    ["<leader>gg"] = { function() require("neogit").open() end, "Open Neogit" }
+  }
+}
+
+M.undotree = {
+  n = {
+    ["<leader>u"] = { vim.cmd.UndotreeToggle, desc = "Undo Tree" }
+  }
+}
+
+M.trouble = {
+  n = {
+    ["[t"] = { function() require("trouble").previous({skip_groups = false, jump = true}) end, "Trouble Prev" },
+    ["]t"] = { function() require("trouble").next({skip_groups = true, jump = true}) end, "Trouble Next" },
+    ["<leader>tt"] = { trouble_cmd(), "Trouble Toggle" },
+    ["<leader>tr"] = { trouble_cmd("lsp_references"), "Trouble References" },
+    ["<leader>fe"] = { trouble_cmd("document_diagnostics"), "Trouble Document Diagnostics" },
+    ["<leader>fE"] = { trouble_cmd("workspace_diagnostics"), "Trouble Workspace Diagnostics" },
+    ["<leader>tQ"] = { trouble_cmd("quickfix"), "Trouble Quickfix" },
+    ["<leader>tl"] = { trouble_cmd("loclist"), "Trouble Loclist" },
+  }
+}
+
+M.bufkill = {
+  n = {
+    ["<leader>bd"] = { "<cmd>BD<CR>", "Kill Buffer" },
+    ["<leader>bD"] = { "<cmd>BD!<CR>", "Kill Buffer" },
+    -- Better switching buffers. Default :bprev and :bnext get confused with
+    -- Conjure Log buffers and netrw buffers
+    ["[b"] = { "<cmd>BB<CR>", "Prev Buffer" },
+    ["]b"] = { "<cmd>BF<CR>", "Next Buffer" },
+  },
+}
+
+M.parpar = {
+  n = {
+    -- Fix J breaking multiline sexps
+    -- https://github.com/gpanders/nvim-parinfer/issues/11
+    ["J"] = { "A<space><esc>J" }
+  }
+}
+
+M.paredit = {
+  plugin = true,
+  n = {
+    ["<A-H>"] = { function() require("nvim-paredit").api.slurp_backwards() end, "Slurp backwards" },
+    ["<A-J>"] = { function() require("nvim-paredit").api.barf_backwards() end, "Barf backwards" },
+    ["<A-K>"] = { function() require("nvim-paredit").api.barf_forwards() end, "Barf forwards" },
+    ["<A-L>"] = { function() require("nvim-paredit").api.slurp_forwards() end, "Slurp forwards" },
+    ["<localleader>w"] = { f.paredit_wrap("( ", ")", "inner_start"), "Wrap element insert head" },
+    ["<localleader>W"] = { f.paredit_wrap("(", ")", "inner_end"), "Wrap element insert tail" },
+    ["<localleader>i"] = { f.paredit_wrap("( ", ")", "inner_start"), "Wrap form insert head" },
+    ["<localleader>I"] = { f.paredit_wrap("(", ")", "inner_end"), "Wrap form insert tail" }
+  }
+}
+
+M.harpoon = {
+  n = {
+    ["<leader>ha"] = { function() require("harpoon"):list():append() end, "Harpoon Add File" },
+    ["<leader>H"] = {
+      function()
+        require("harpoon").ui:toggle_quick_menu(
+          require("harpoon"):list(),
+          { border = "rounded", title_pos = "center" })
+      end,
+      "Harpoon Quick Menu"
+    },
+    ["<leader>1"] = { f.harpoon_select(1), "Harpoon Browse File (1)" },
+    ["<leader>2"] = { f.harpoon_select(2), "Harpoon Browse File (2)" },
+    ["<leader>3"] = { f.harpoon_select(3), "Harpoon Browse File (3)" },
+    ["<leader>4"] = { f.harpoon_select(4), "Harpoon Browse File (4)" },
+    ["<leader>5"] = { f.harpoon_select(5), "Harpoon Browse File (5)" },
+    ["<leader>6"] = { f.harpoon_select(6), "Harpoon Browse File (6)" },
+    ["<leader>7"] = { f.harpoon_select(7), "Harpoon Browse File (7)" },
+    ["<leader>8"] = { f.harpoon_select(8), "Harpoon Browse File (8)" },
+    ["<leader>9"] = { f.harpoon_select(9), "Harpoon Browse File (9)" },
+    ["<leader>0"] = { f.harpoon_select(10), "Harpoon Browse File (10)" },
+    ["<A-p>"] = { function() require("harpoon"):list():prev() end, "Harpoon Next" },
+    ["<A-n>"] = { function() require("harpoon"):list():next() end, "Harpoon Prev" },
+  }
+}
+
+M.todo_comments = {
+  n = {
+    ["gt"] = { "<cmd>TodoQuickFix<CR>", "Show TODOs: Quickfix" },
+    ["gT"] = { "<cmd>TodoTrouble<CR>", "Show TODOs: Trouble" },
+    ["<leader>ft"] = { "<cmd>TodoTelescope<CR>", "Show TODOs: Telescope" },
+  }
+}
+
+M.illuminate = {
+  n = {
+    ["[r"] = {
+      function()
+        require("illuminate").goto_prev_reference()
+        -- vim.api.nvim_feedkeys("zz", "n", false)
+      end,
+      "Illuminate: Goto next reference"
+    },
+    ["]r"] = {
+      function()
+        require("illuminate").goto_next_reference()
+        -- vim.api.nvim_feedkeys("zz", "n", false)
+      end,
+      "Illuminate: Goto next reference"
+    }
+  }
+}
+
+M.treesitter_playground = {
+  n = {
+    ["<leader>ht"] = { "<cmd>TSHighlightCapturesUnderCursor<CR>", "Show Treesitter Type Popover" } ,
+    ["<leader>hT"] = { "<cmd>TSPlaygroundToggle<CR>", "Open Treesitter Playground" }
+  }
+}
+
+local scroll_speed = "50"
+M.neoscroll = {
+  plugin = true,
+  n = {
+    ["<C-u>"] = {"scroll", {"-vim.wo.scroll", "true", scroll_speed}},
+    ["<C-d>"] = {"scroll", {"vim.wo.scroll", "true", scroll_speed}},
+    ["<C-b>"] = {"scroll", {"-vim.api.nvim_win_get_height(0)", "true", scroll_speed}},
+    ["<C-f>"] = {"scroll", {"vim.api.nvim_win_get_height(0)", "true", scroll_speed}},
+    ["<C-y>"] = {"scroll", {"-0.10", "false", scroll_speed}},
+    ["<C-e>"] = {"scroll", { "0.10", "false", scroll_speed}},
+    ["zt"]    = {"zt", { scroll_speed }},
+    ["zz"]    = {"zz", { scroll_speed }},
+    ["zb"]    = {"zb", { scroll_speed }},
   }
 }
 
