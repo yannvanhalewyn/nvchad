@@ -90,7 +90,7 @@ local function open_with_trouble()
 end
 
 M.telescope = {
-  extensions_list = { "themes", "terms", "fzf", "ui-select", "file_browser" },
+  extensions_list = { "themes", "terms","ui-select", "file_browser" },
   defaults = {
     mappings = {
       i = { ["<c-t>"] = open_with_trouble },
