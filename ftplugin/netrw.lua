@@ -61,7 +61,7 @@ local function draw_icons()
     -- Get line contents
     local line = vim.fn.getline(cur_line_nr)
 
-    if is_empty(line) then
+    if is_empty(line) or string.sub(line, 0, 1) == "\"" then
       -- If current line is an empty line (newline) then increase current line count
       -- without doing nothing more
       cur_line_nr = cur_line_nr + 1
@@ -102,19 +102,19 @@ local function draw_icons()
 end
 
 -- This sucks
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "netrw",
---   callback = function()
---     draw_icons()
---   end
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "netrw",
+  callback = function()
+    draw_icons()
+  end
+})
 
--- vim.api.nvim_create_autocmd("TectChanged", {
---   pattern = "*",
---   callback = function()
---     draw_icons()
---   end
--- })
+vim.api.nvim_create_autocmd("TextChanged", {
+  pattern = "*",
+  callback = function()
+    draw_icons()
+  end
+})
 
 vim.keymap.set("n", "V", ntrw_open_to_right, { buffer = true, desc = "Open file in split to the right" })
-vim.keymap.set("n", "q", "<cmd>BD<CR>", {buffer = true, desc = 'Quit (or Close) help, quickfix, netrw, etc windows', })
+vim.keymap.set("n", "<C-q>", vim.cmd.quit, {buffer = true, desc = 'Quit (or Close) help, quickfix, netrw, etc windows', })
