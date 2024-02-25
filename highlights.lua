@@ -19,7 +19,8 @@ M.override = {
   --   fg = "yellow",
   -- },
 
-  ["@string.special"] = {
+  -- Used to be @string.special
+  ["@symbol"] = {
     fg = "blue",
   },
 }
