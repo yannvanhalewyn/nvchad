@@ -1,5 +1,4 @@
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
+local config = require("plugins.configs.lspconfig")
 
 local lspconfig = require "lspconfig"
 
@@ -8,8 +7,9 @@ local servers = { "html", "cssls", "tsserver", "clangd", "clojure_lsp", "lua_ls"
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_init = config.on_init,
+    on_attach = config.on_attach,
+    capabilities = config.capabilities,
   }
 end
 
