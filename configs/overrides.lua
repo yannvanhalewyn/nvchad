@@ -64,6 +64,7 @@ M.mason = {
 
 local cmp = require "cmp"
 
+-- TODO move to mappings
 M.cmp = {
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -72,6 +73,7 @@ M.cmp = {
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
+    ["<C-q>"] = cmp.mapping.close(),
     ["<CR>"] = nil,
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
