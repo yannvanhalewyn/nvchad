@@ -165,10 +165,11 @@ local plugins = {
     "RRethy/vim-illuminate",
     -- 16ms loading time, lazy load on clojure
     -- Consider using keys with a toggle
-    ft = { "clojure" }
+    ft = { "clojure", "lua" }
   },
   {
     "nvim-treesitter/playground",
+    keys = require("custom.mappings").treesitter_playground["n"]
   },
   {
     "karb94/neoscroll.nvim",
@@ -210,7 +211,7 @@ local plugins = {
     "folke/which-key.nvim",
     -- Consider only disabling operators plugin, as it opens up when doing 'c2'
     -- for example.
-    enabled = false,
+    enabled = true,
   },
   {
     "NvChad/nvterm",

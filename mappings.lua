@@ -29,68 +29,78 @@ M.disabled = {
     ["<leader>gt"] = "",
     -- ["<tab>"] = "",
     -- ["<S-tab>"] = "",
-  }
+  },
 }
 
-M.abc = {
+M.general = {
   i = {
-    ["<C-k>"] = {vim.lsp.buf.signature_help, "LSP: Signature Help"}
+    ["<C-k>"] = { vim.lsp.buf.signature_help, "LSP: Signature Help" },
+    ["<C-y>"] = { "<C-o>p", "Put" },
   },
   n = {
     -- Rebind increment to not use tmux prefix
-    ["+"] = {"<C-a>", "Increment"},
-    ["-"] = {"<C-x>", "Decrement"},
-    ["n"] = {"nzz", "Next Search Result"},
-    ["N"] = {"Nzz", "Prev Search Result"},
-    ["S"] = {":%s/<C-r><C-w>/<C-r><C-w>/gI<left><left><left>", "Replace Current Word"},
+    ["+"] = { "<C-a>", "Increment" },
+    ["-"] = { "<C-x>", "Decrement" },
+    ["n"] = { "nzz", "Next Search Result" },
+    ["N"] = { "Nzz", "Prev Search Result" },
+    ["S"] = { ":%s/<C-r><C-w>/<C-r><C-w>/gI<left><left><left>", "Replace Current Word" },
     -- ["<leader>cd"] = { function() vim.lsp.buf.hover() end, "Show doc"},
-    ["<leader>tp"] = { f.toggle_parinfer, "Toggle Parinfer"},
-    ["<leader>td"] = { f.toggle_diagnostics, "Toggle Diagnostics"},
-    ["<leader>tD"] = { f.toggle_diagnostics_virtual_text, "Toggle Diagnostics Virtual Text"},
-    ["<leader>tb"] = { function() require("gitsigns").toggle_current_line_blame() end, "Toggle LineBlame"},
-    ["gs"] = { function() require("luasnip.loaders").edit_snippet_files() end, "Goto Snippet file"},
+    ["<leader>tp"] = { f.toggle_parinfer, "Toggle Parinfer" },
+    ["<leader>td"] = { f.toggle_diagnostics, "Toggle Diagnostics" },
+    ["<leader>tD"] = { f.toggle_diagnostics_virtual_text, "Toggle Diagnostics Virtual Text" },
+    ["<leader>tb"] = { function() require("gitsigns").toggle_current_line_blame() end, "Toggle LineBlame", },
+    ["gs"] = {
+      function()
+        require("luasnip.loaders").edit_snippet_files()
+      end,
+      "Goto Snippet file",
+    },
     -- ["[b"] = {"<cmd>bprev<CR>", "Prev Buffer"},
     -- ["]b"] = {"<cmd>bnext<CR>", "Next Buffer"},
-    ["[e"] = {vim.diagnostic.goto_prev, "Prev Error"},
-    ["]e"] = {vim.diagnostic.goto_next, "Next Error"},
-    ["[q"] = {vim.cmd.cprev, "Quickfix Prev"},
-    ["]q"] = {vim.cmd.cnext, "Quickfix Next"},
-    ["[w"] = {vim.cmd.tabprev, "Prev Tab"},
-    ["]w"] = {vim.cmd.tabnext, "Next Tab"},
-    ["<S-tab>"] = {vim.cmd.tabprev, "Prev Tab"},
+    ["[e"] = { vim.diagnostic.goto_prev, "Prev Error" },
+    ["]e"] = { vim.diagnostic.goto_next, "Next Error" },
+    ["[q"] = { vim.cmd.cprev, "Quickfix Prev" },
+    ["]q"] = { vim.cmd.cnext, "Quickfix Next" },
+    ["[w"] = { vim.cmd.tabprev, "Prev Tab" },
+    ["]w"] = { vim.cmd.tabnext, "Next Tab" },
+    ["<S-tab>"] = { vim.cmd.tabprev, "Prev Tab" },
     -- ["<tab>"] = {vim.cmd.tabnext, "Next Tab"},
     -- ["gr"] = { telescope_cmd("lsp_references"), "LSP References" },
-    ["<leader>/"] = {telescope_cmd("current_buffer_fuzzy_find"), "Find In Current Buffer"},
+    ["<C-k>"] = { vim.lsp.buf.signature_help, "LSP: Signature Help" },
+    ["<leader>/"] = { telescope_cmd "current_buffer_fuzzy_find", "Find In Current Buffer" },
     -- ["<leader>/"] = {"Telescope live_grep search_dirs={\"%:p\"} vimgrep_arguments=rg,--color=never,--no-heading,--with-filename,--line-number,--column,--smart-case,--fixed-strings", "Find in Current Buffer"},
-    ["<leader>x"] = {telescope_cmd("live_grep"), "Grep"},
-    ["<leader>d"] = {"<cmd>Explore %:h<CR>", "Open Directory"},
-    ["<leader><tab>n"] = {vim.cmd.tabnew, "New Tab"},
-    ["<leader><tab>d"] = {vim.cmd.tabclose, "Quit Tab"},
-    ["<leader>wd"] = {vim.cmd.quit, "Window Quit"},
-    ["<leader>wq"] = {":wall<CR>:wq<CR>", "Window Quit"},
-    ["<leader>wb"] = {vim.cmd.split, "Window Split Horizontally"},
-    ["<leader>wv"] = {vim.cmd.vsplit, "Window Split Vertically"},
+    ["<leader>x"] = { telescope_cmd "live_grep", "Grep" },
+    ["<leader>d"] = { "<cmd>Explore %:h<CR>", "Open Directory" },
+    ["<leader><tab>n"] = { vim.cmd.tabnew, "New Tab" },
+    ["<leader><tab>d"] = { vim.cmd.tabclose, "Quit Tab" },
+    ["<leader>wd"] = { vim.cmd.quit, "Window Quit" },
+    ["<leader>wq"] = { ":wall<CR>:wq<CR>", "Window Quit" },
+    ["<leader>wb"] = { vim.cmd.split, "Window Split Horizontally" },
+    ["<leader>wv"] = { vim.cmd.vsplit, "Window Split Vertically" },
     -- ["<leader>n"] = {"<cmd>NvimTreeToggle<CR>", "NvimTree Toggle"},
-    ["<leader>n"] = { f.open_netrw_filetree, "Open Filetree"},
-    ["<leader> "] = { telescope_cmd("find_files"), "Find files" },
-    ["<leader>bb"] = { telescope_cmd("buffers"), "Find buffers" },
+    ["<leader>n"] = { f.open_netrw_filetree, "Open Filetree" },
+    ["<leader> "] = { telescope_cmd "find_files", "Find files" },
+    ["<leader>bb"] = { telescope_cmd "buffers", "Find buffers" },
     ["<leader>bm"] = { "<cmd>messages<CR>", "Messages" },
-    ["<leader>cr"] = { telescope_cmd("lsp_references"), "Code References" },
-    ["<leader>cR"] = { function() require("nvchad.renamer").open() end, "LSP rename" },
+    ["<leader>cr"] = { telescope_cmd "lsp_references", "Code References" },
+    ["<leader>cR"] = {
+      function()
+        require("nvchad.renamer").open()
+      end,
+      "LSP rename",
+    },
     ["<leader>ce"] = { vim.diagnostic.setqflist, "Code Diagnostics (Buffer)" },
-    ["<leader>fd"] = { telescope_cmd("diagnostics"), "Find Diagnostics" },
-    ["<leader>fr"] = { telescope_cmd("oldfiles"), "Find Recent Files" },
-    ["<leader>fg"] = { telescope_cmd("git_files"), "Find Git Files" },
-    ["<leader>fR"] = { telescope_cmd("lsp_references"), "Find References" },
+    ["<leader>fd"] = { telescope_cmd "diagnostics", "Find Diagnostics" },
+    ["<leader>fr"] = { telescope_cmd "oldfiles", "Find Recent Files" },
+    ["<leader>fg"] = { telescope_cmd "git_files", "Find Git Files" },
+    ["<leader>fR"] = { telescope_cmd "lsp_references", "Find References" },
     ["<leader>fo"] = { ":Telescope file_browser path=%:p:h select_buffer=true<CR>", "File Browser" },
     ["<leader>fw"] = { f.grep_current_word, "Find Word at Point" },
     ["<leader>fW"] = { f.grep_current_WORD, "Find WORD at Point" },
     ["<leader>fs"] = { vim.cmd.write, "Save File" },
     ["<leader>fS"] = { "<CMD>wall<CR>", "Save All Files" },
-    ["<leader>gp"] = { function() require("gitsigns").preview_hunk_inline() end, "Git Preview hunk", },
-    ["<leader>k"] = {vim.lsp.buf.signature_help, "LSP: Signature Help"},
-    ["<leader>hk"] = { telescope_cmd("keymaps"), "Help Keybindings" },
-    ["<leader>hh"] = { telescope_cmd("help_tags"), "Help Tags" },
+    ["<leader>hk"] = { telescope_cmd "keymaps", "Help Keybindings" },
+    ["<leader>hh"] = { telescope_cmd "help_tags", "Help Tags" },
     ["p"] = { ':norm "+]p<CR>', "Paste and indent" },
     ["P"] = { ':norm "+[p<CR>', "Paste and indent" },
     ["<leader>R"] = { f.refresh_chrome, "Refresh Google Chrome" },
@@ -105,61 +115,89 @@ M.abc = {
   },
 
   v = {
-    ["<A-j>"] = { ":m '>+1<CR>gv=gv", "Move Selection Down"},
-    ["<A-k>"] = { ":m '<-2<CR>gv=gv", "Move Selection Up"},
+    ["<A-j>"] = { ":m '>+1<CR>gv=gv", "Move Selection Down" },
+    ["<A-k>"] = { ":m '<-2<CR>gv=gv", "Move Selection Up" },
     -- Actually pasting already does this in xmode so ¯\_(ツ)_/¯
     ["<leader>p"] = { '"_dP', "Paste without losing register" },
   },
 
   c = {
-    ["<C-a>"] = {"<Home>"},
-    ["<C-e>"] = {"<End>"},
-    ["<C-p>"] = {"<Up>"},
-    ["<C-n>"] = {"<Down>"},
-    ["<C-b>"] = {"<Left>"},
-    ["<C-f>"] = {"<Right>"},
-    ["<M-b>"] = {"<S-Left>"},
-    ["<M-f>"] = {"<S-Right>"},
-  }
+    ["<C-a>"] = { "<Home>" },
+    ["<C-e>"] = { "<End>" },
+    ["<C-p>"] = { "<Up>" },
+    ["<C-n>"] = { "<Down>" },
+    ["<C-b>"] = { "<Left>" },
+    ["<C-f>"] = { "<Right>" },
+    ["<M-b>"] = { "<S-Left>" },
+    ["<M-f>"] = { "<S-Right>" },
+  },
+}
+
+M.git = {
+  n = {
+    ["<leader>gg"] = { function() require("neogit").open() end, "Open Neogit" },
+    ["<leader>gs"] = { function() require("gitsigns").stage_hunk() end, "Git Stage hunk", },
+    ["<leader>gp"] = { function() require("gitsigns").preview_hunk_inline() end, "Git Preview hunk" },
+  },
 }
 
 M.agitator = {
   n = {
-    ["<leader>gB"] = { function() require("agitator").git_blame_toggle({}) end, "Git Blame" },
-    ["<leader>gf"] = { function() require("agitator").open_file_git_branch() end, "Git Find File" },
-    ["<leader>gt"] = { function() require("agitator").git_time_machine() end, "Git Timemachine" }
-  }
-}
-
-M.neogit = {
-  n = {
-    ["<leader>gg"] = { function() require("neogit").open() end, "Open Neogit" }
-  }
+    ["<leader>gB"] = {
+      function()
+        require("agitator").git_blame_toggle {}
+      end,
+      "Git Blame",
+    },
+    ["<leader>gf"] = {
+      function()
+        require("agitator").open_file_git_branch()
+      end,
+      "Git Find File",
+    },
+    ["<leader>gt"] = {
+      function()
+        require("agitator").git_time_machine()
+      end,
+      "Git Timemachine",
+    },
+  },
 }
 
 M.undotree = {
   n = {
-    ["<leader>u"] = { vim.cmd.UndotreeToggle, desc = "Undo Tree" }
-  }
+    ["<leader>u"] = { vim.cmd.UndotreeToggle, desc = "Undo Tree" },
+  },
 }
 
 M.trouble = {
   n = {
-    ["[t"] = { function() require("trouble").previous({skip_groups = false, jump = true}) end, "Trouble Prev" },
-    ["]t"] = { function() require("trouble").next({skip_groups = true, jump = true}) end, "Trouble Next" },
+    ["[t"] = {
+      function()
+        require("trouble").previous { skip_groups = false, jump = true }
+      end,
+      "Trouble Prev",
+    },
+    ["]t"] = {
+      function()
+        require("trouble").next { skip_groups = true, jump = true }
+      end,
+      "Trouble Next",
+    },
     ["<leader>tt"] = { trouble_cmd(), "Trouble Toggle" },
-    ["<leader>tr"] = { trouble_cmd("lsp_references"), "Trouble References" },
-    ["<leader>fe"] = { trouble_cmd("document_diagnostics"), "Trouble Document Diagnostics" },
-    ["<leader>fE"] = { trouble_cmd("workspace_diagnostics"), "Trouble Workspace Diagnostics" },
-    ["<leader>tQ"] = { trouble_cmd("quickfix"), "Trouble Quickfix" },
-    ["<leader>tl"] = { trouble_cmd("loclist"), "Trouble Loclist" },
-  }
+    ["<leader>tr"] = { trouble_cmd "lsp_references", "Trouble References" },
+    ["<leader>fe"] = { trouble_cmd "document_diagnostics", "Trouble Document Diagnostics" },
+    ["<leader>fE"] = { trouble_cmd "workspace_diagnostics", "Trouble Workspace Diagnostics" },
+    ["<leader>tQ"] = { trouble_cmd "quickfix", "Trouble Quickfix" },
+    ["<leader>tl"] = { trouble_cmd "loclist", "Trouble Loclist" },
+  },
 }
 
 M.bufkill = {
   n = {
-    ["<leader>bd"] = { "<cmd>BD<CR>", "Kill Buffer" },
-    ["<leader>bD"] = { "<cmd>BD!<CR>", "Kill Buffer" },
+    ["<leader>bd"] = { "<cmd>bd<CR>", "Kill Buffer" },
+    -- ["<leader>bd"] = { "<cmd>BD<CR>", "Kill Buffer" },
+    -- ["<leader>bD"] = { "<cmd>BD!<CR>", "Kill Buffer" },
     -- Better switching buffers. Default :bprev and :bnext get confused with
     -- Conjure Log buffers and netrw buffers
     ["[b"] = { "<cmd>BB<CR>", "Prev Buffer" },
@@ -167,12 +205,19 @@ M.bufkill = {
   },
 }
 
+M.conjure = {
+  n = {
+    ["<localleader>tt"] = { ":ConjureCljRunCurrentTest<CR>"},
+    ["<localleader>ct"] = { "m'O<esc>80i;<esc>`'"}
+  }
+}
+
 M.parpar = {
   n = {
     -- Fix J breaking multiline sexps
     -- https://github.com/gpanders/nvim-parinfer/issues/11
-    ["J"] = { "A<space><esc>J" }
-  }
+    ["J"] = { "A<space><esc>J" },
+  },
 }
 
 M.paredit = {
@@ -185,8 +230,8 @@ M.paredit = {
     ["<localleader>w"] = { f.paredit_wrap("( ", ")", "inner_start"), "Wrap element insert head" },
     ["<localleader>W"] = { f.paredit_wrap("(", ")", "inner_end"), "Wrap element insert tail" },
     ["<localleader>i"] = { f.paredit_wrap("( ", ")", "inner_start"), "Wrap form insert head" },
-    ["<localleader>I"] = { f.paredit_wrap("(", ")", "inner_end"), "Wrap form insert tail" }
-  }
+    ["<localleader>I"] = { f.paredit_wrap("(", ")", "inner_end"), "Wrap form insert tail" },
+  },
 }
 
 M.harpoon = {
@@ -243,26 +288,28 @@ M.illuminate = {
 }
 
 M.treesitter_playground = {
+  plugin = true,
+  -- TODO use same shape convention and transform
   n = {
-    ["<leader>ht"] = { "<cmd>TSHighlightCapturesUnderCursor<CR>", "Show Treesitter Type Popover" } ,
-    ["<leader>hT"] = { "<cmd>TSPlaygroundToggle<CR>", "Open Treesitter Playground" }
-  }
+    {"<leader>ht", "<cmd>TSHighlightCapturesUnderCursor<CR>", "Show Treesitter Type Popover" },
+    {"<leader>hT", "<cmd>TSPlaygroundToggle<CR>", "Open Treesitter Playground" },
+  },
 }
 
 local scroll_speed = "50"
 M.neoscroll = {
   plugin = true,
   n = {
-    ["<C-u>"] = {"scroll", {"-vim.wo.scroll", "true", scroll_speed}},
-    ["<C-d>"] = {"scroll", {"vim.wo.scroll", "true", scroll_speed}},
-    ["<C-b>"] = {"scroll", {"-vim.api.nvim_win_get_height(0)", "true", scroll_speed}},
-    ["<C-f>"] = {"scroll", {"vim.api.nvim_win_get_height(0)", "true", scroll_speed}},
-    ["<C-y>"] = {"scroll", {"-0.10", "false", scroll_speed}},
-    ["<C-e>"] = {"scroll", { "0.10", "false", scroll_speed}},
-    ["zt"]    = {"zt", { scroll_speed }},
-    ["zz"]    = {"zz", { scroll_speed }},
-    ["zb"]    = {"zb", { scroll_speed }},
-  }
+    ["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", scroll_speed } },
+    ["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", scroll_speed } },
+    ["<C-b>"] = { "scroll", { "-vim.api.nvim_win_get_height(0)", "true", scroll_speed } },
+    ["<C-f>"] = { "scroll", { "vim.api.nvim_win_get_height(0)", "true", scroll_speed } },
+    ["<C-y>"] = { "scroll", { "-0.10", "false", scroll_speed } },
+    ["<C-e>"] = { "scroll", { "0.10", "false", scroll_speed } },
+    ["zt"] = { "zt", { scroll_speed } },
+    ["zz"] = { "zz", { scroll_speed } },
+    ["zb"] = { "zb", { scroll_speed } },
+  },
 }
 
 return M
